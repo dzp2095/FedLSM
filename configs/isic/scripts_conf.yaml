@@ -1,0 +1,5 @@
+data_folder: "/isic2018/data" # target directory 
+raw_data_folder: "/isic2018/raw_data" # directory of your original dataset
+client_num: 5
+class_num: 3
+seed: 523

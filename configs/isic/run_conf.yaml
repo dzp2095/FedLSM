@@ -1,0 +1,87 @@
+data_folder: "/isic2018/data"
+raw_data_folder: "/isic2018/raw_data"
+task: 1
+
+
+dataset:
+  aug: 'strong'
+  train: /isic2018/data/fl
+  val: /isic2018/data/fl/val.csv
+  test: /isic2018/data/fl/test.csv
+  resize:
+    height: 224
+    width: 224
+  mean: [0.763,0.546,0.570]
+  std: [0.141,0.153,0.170]
+
+model:
+  torch_room: /project/models
+  pretrained: True
+  drop_rate: 0
+  mode: U-MultiClass
+  num_classes: 7
+
+eval:
+  level: image
+  
+train:
+  device: cuda:0
+  eval_interval: 500
+  test_interval: 1000
+  test_start: 10000
+  use_CMSL: False
+  checkpoint_dir: /isic2018/data/fl/checkpoints/
+  resume_path: null
+  class_weight: False
+  batch_size: 64
+  num_workers: 8
+  max_epoch: null
+  max_iter: 20000
+  optimizer: 
+    lr: 1.0e-4
+    beta1: 0.9
+    beta2: 0.9999
+    weight_decay: 5.0e-4
+  lr_scheduler:
+    factor: 0.1
+    patience: 2
+    min_lr: 1.0e-7
+
+test: 
+  save_as_csv: True
+  target_dir: /isic2018/data/fl/predicted
+
+wandb:
+  key: ""
+  project: "isic2018"
+  run_name: "FedAdapt"
+
+fl:
+  data_pool:
+    uncertain_num: 50
+    certain_num: 200
+    alpha: 0.2
+    batch_size: 4
+    lambda_uncertain: 0.1
+    pos_thresh: 0.7
+    neg_thresh: 0.005
+
+  ema: True
+  ema_decay: 0.999
+  pseudo_thresh: 0.95
+  pseudo_negative_thresh: 0.01
+  pseudo_temperate: 1
+  num_clients: 5
+  mode: partial
+  rounds: 50
+  test_start_round: 0
+  eval_start_round: 0
+  save_start_round: 60
+  local_iter: 30
+  wandb_global: False
+
+hooks:
+  wandb: False
+  val_loss: False
+  eval: False
+  best_saver: False

@@ -1,0 +1,5 @@
+data_folder: "/chestxray-14/data" # target directory 
+raw_data_folder: "/chestxray-14/raw_data" # directory of your original dataset
+client_num: 8
+class_num: 3
+seed: 524

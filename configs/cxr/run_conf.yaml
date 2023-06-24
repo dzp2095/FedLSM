@@ -1,0 +1,87 @@
+data_folder: "/chestxray-14/data"
+raw_data_folder: "/chestxray-14/raw_data"
+task: 0
+
+dataset:
+  omni_weak_aug: True
+  train: /chestxray-14/data/fl
+  val: /chestxray-14/data/fl/val.csv
+  test: /chestxray-14/data/fl/test.csv
+  resize:
+    height: 320
+    width: 320
+  mean: [0.506, 0.506, 0.506]
+  std: [0.252, 0.252, 0.252]
+
+model:
+  torch_room:  /project/FedOmniCls/models # directory to save the pretrained model
+  pretrained: True
+  drop_rate: 0
+  num_classes: 14
+  ema: True
+
+eval:
+  level: image
+  
+train:
+  device: cuda:0
+  eval_interval: 500
+  test_interval: 1000
+  test_start: 10000
+  use_CMSL: False
+  checkpoint_dir: /chestxray-14/data/fl/checkpoints/
+  resume_path: null
+  class_weight: True
+  batch_size: 64
+  num_workers: 4
+  max_epoch: null
+  max_iter: 20000
+  optimizer: 
+    lr: 1.0e-4
+    beta1: 0.9
+    beta2: 0.9999
+    weight_decay: 5.0e-4
+  lr_scheduler:
+    factor: 0.1
+    patience: 2
+    min_lr: 1.0e-7
+
+
+test: 
+  save_as_csv: True
+  target_dir: /chestxray-14/data/full/predicted
+
+wandb:
+  key: ""
+  project: "chest-xray14"
+  run_name: "FedAdapt"
+
+fl:
+  data_pool:
+    uncertain_num: 500
+    certain_num: 2000
+    alpha: 0.2
+    batch_size: 4
+    lambda_uncertain: 0.1
+    pos_thresh: 0.7
+    neg_thresh: 0.005
+
+  ema: True
+  ema_decay: 0.999
+  pseudo_thresh: 0.85
+  pseudo_negative_thresh: 0.01
+  pseudo_temperate: 1
+  num_clients: 8
+  mode: partial
+  rounds: 50
+  test_start_round: 0
+  eval_start_round: 0
+  save_start_round: 0
+  local_iter: 10
+  wandb_global: False
+
+hooks:
+  wandb: False
+  val_loss: False
+  eval: False
+  best_saver: False
