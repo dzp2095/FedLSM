@@ -11,3 +11,14 @@ python3 train.py --config "/home/project/FedLSM/configs/isic/run_conf.yaml"
 python3 test.py --config "config file"  \
 --resume_path "model path" \
 --test_csv_path "test csv file path"
+
+Please cite our paper if you find this code useful for your research.
+# citation
+@InProceedings{Deng2023,
+  author    = {Deng, Zhipeng and Luo, Luyang and Chen, Hao},
+  title     = {Scale Federated Learning for Label Set Mismatch in Medical Image Classification},
+  booktitle = {Medical Image Computing and Computer Assisted Intervention -- MICCAI 2023},
+  year      = {2023},
+}
+
+
