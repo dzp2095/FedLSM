@@ -19,7 +19,9 @@ Please cite our paper if you find this code useful for your research.
 @InProceedings{Deng2023, 
   author    = {Deng, Zhipeng and Luo, Luyang and Chen, Hao}, 
   title     = {Scale Federated Learning for Label Set Mismatch in Medical Image Classification},
-  booktitle = {Medical Image Computing and Computer Assisted Intervention -- MICCAI 2023},
+  booktitle={International Conference on Medical Image Computing and Computer-Assisted Intervention},
   year      = {2023},
+  pages= {118--127},
+  organization={Springer}
 }
 '''
